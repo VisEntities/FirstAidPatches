@@ -379,6 +379,9 @@
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoverTool.cs" />
+    <Compile Include="SpawnMini.cs" />
+    <Compile Include="Trade.cs" />
+    <Compile Include="VehicleLicence.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
