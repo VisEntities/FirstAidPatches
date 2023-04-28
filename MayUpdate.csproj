@@ -376,6 +376,7 @@
   <ItemGroup>
     <Compile Include="AutomatedStashTraps.cs" />
     <Compile Include="FurnaceSplitter.cs" />
+    <Compile Include="GUIShop.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoverTool.cs" />
