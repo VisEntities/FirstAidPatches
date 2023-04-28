@@ -375,7 +375,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomatedStashTraps.cs" />
+    <Compile Include="FurnaceSplitter.cs" />
+    <Compile Include="ImageLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoverTool.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
