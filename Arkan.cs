@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Oxide.Plugins
 {
-    [Info("Arkan", "Antidote", "1.0.19")]
+    [Info("Arkan", "Antidote", "1.0.20")]
     [Description("Player shot analysis tool for Admins")]
     class Arkan : RustPlugin
     {
@@ -207,7 +207,7 @@ namespace Oxide.Plugins
             public float lastFiredTime;
 			public float physicsSteps = 32f;
             public SortedDictionary<int, FiredProjectile> firedProjectiles = new SortedDictionary<int, FiredProjectile>();
-            public SortedDictionary<uint, MeleeThrown> melees = new SortedDictionary<uint, MeleeThrown>();
+            public SortedDictionary<ulong, MeleeThrown> melees = new SortedDictionary<ulong, MeleeThrown>();
             public bool isChecked;
         }
 
@@ -856,7 +856,7 @@ namespace Oxide.Plugins
 
                             MeleeThrown _melee = new MeleeThrown();
 
-                            uint meleeID = item.uid;
+                            ulong meleeID = item.uid.Value;
 
 							if (!PlayersFiredProjectlesData[player.userID].melees.ContainsKey(meleeID))
                                 PlayersFiredProjectlesData[player.userID].melees.Add(meleeID, new MeleeThrown());
@@ -875,7 +875,7 @@ namespace Oxide.Plugins
                             _melee.gravityModifier = component1.gravityModifier;
                             _melee.position = player.eyes.position;
 							_melee.meleeShortName = item.info.shortname;
-                            _melee.meleeUID = item.uid;
+                            _melee.meleeUID = (uint)item.uid.Value;
 
                             if (player.GetParentEntity() != null)
                             {
@@ -915,8 +915,8 @@ namespace Oxide.Plugins
                     return;
 		
 			if (PlayersFiredProjectlesData.ContainsKey(player.userID))
-				if (PlayersFiredProjectlesData[player.userID].melees.ContainsKey(item.uid))
-					PlayersFiredProjectlesData[player.userID].melees.Remove(item.uid);
+				if (PlayersFiredProjectlesData[player.userID].melees.ContainsKey(item.uid.Value))
+					PlayersFiredProjectlesData[player.userID].melees.Remove(item.uid.Value);
 		}
 
         private void OnProjectileRicochet(BasePlayer player, PlayerProjectileRicochet playerProjectileRicochet)
@@ -1070,7 +1070,7 @@ namespace Oxide.Plugins
             fp.playerEyesPosition = player.eyes.position;
             //	fp.playerEyesPosition = player.eyes.position - player.eyes.HeadForward().normalized * (_config.playerEyesPositionToProjectileInitialPositionDistanceForgiveness * 2f); //uncomment this line to get AIMBOT false positives for testing purposes
             fp.weaponShortName = item.info.shortname;
-            fp.weaponUID = item.uid;
+            fp.weaponUID = (uint)item.uid.Value;
             fp.ammoShortName = projectile.primaryMagazine.ammoType.shortname;
             fp.NRProbabilityModifier = NRProbabilityModifier;
             fp.attachments = attachments;
@@ -1242,7 +1242,7 @@ namespace Oxide.Plugins
 
                         MeleeThrown _melee;
 
-                        if (PlayersFiredProjectlesData[attacker.userID].melees.TryGetValue((info.Weapon.ownerItemUID), out _melee))
+                        if (PlayersFiredProjectlesData[attacker.userID].melees.TryGetValue(info.Weapon.ownerItemUID.Value, out _melee))
                         {
                             fp.firedTime = _melee.firedTime;
                             //	fp.projectileVelocity = Vector3.Normalize(_melee.playerEyesLookAt) * _melee.projectileVelocity;

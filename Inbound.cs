@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Oxide.Plugins
 {
-    [Info("Inbound", "Substrata", "0.6.2")]
+    [Info("Inbound", "Substrata", "0.6.3")]
     [Description("Broadcasts notifications when patrol helicopters, supply drops, cargo ships, etc. are inbound")]
 
     class Inbound : RustPlugin
@@ -147,13 +147,13 @@ namespace Oxide.Plugins
             });
         }
 
-        private HashSet<uint> droppedDrops = new HashSet<uint>();
+        private HashSet<ulong> droppedDrops = new HashSet<ulong>();
         void OnSupplyDropDropped(SupplyDrop drop, CargoPlane plane)
         {
             NextTick(() =>
             {
-                if (drop == null || droppedDrops.Contains(drop.net.ID)) return;
-                droppedDrops.Add(drop.net.ID);
+                if (drop == null || droppedDrops.Contains(drop.net.ID.Value)) return;
+                droppedDrops.Add(drop.net.ID.Value);
                 CalledDrop calledDrop = GetCalledDrop(plane, null);
                 if (calledDrop != null) calledDrop._drop = drop;
                 SendInboundMessage(Lang("SupplyDropDropped", null, SupplyDropPlayer(calledDrop), Location(drop.transform.position, null)), configData.alerts.supplyDrop && !HideSupplyAlert(calledDrop));
@@ -162,11 +162,11 @@ namespace Oxide.Plugins
 
         void OnEntitySpawned(SupplyDrop drop) => NextTick(() => OnSupplyDropDropped(drop, null));
 
-        private HashSet<uint> landedDrops = new HashSet<uint>();
+        private HashSet<ulong> landedDrops = new HashSet<ulong>();
         void OnSupplyDropLanded(SupplyDrop drop)
         {
-            if (drop == null || landedDrops.Contains(drop.net.ID)) return;
-            landedDrops.Add(drop.net.ID);
+            if (drop == null || landedDrops.Contains(drop.net.ID.Value)) return;
+            landedDrops.Add(drop.net.ID.Value);
             CalledDrop calledDrop = GetCalledDrop(null, drop);
             SendInboundMessage(Lang("SupplyDropLanded_", null, SupplyDropPlayer(calledDrop), Location(drop.transform.position, null)), configData.alerts.supplyDropLand && !HideSupplyAlert(calledDrop));
         }
@@ -176,8 +176,8 @@ namespace Oxide.Plugins
             if (drop == null) return;
             CalledDrop calledDrop = GetCalledDrop(null, drop);
             if (calledDrop != null) calledDrops.Remove(calledDrop);
-            droppedDrops.Remove(drop.net.ID);
-            landedDrops.Remove(drop.net.ID);
+            droppedDrops.Remove(drop.net.ID.Value);
+            landedDrops.Remove(drop.net.ID.Value);
         }
 
         #region Messages
