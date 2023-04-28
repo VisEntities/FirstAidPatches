@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Oxide.Plugins
 {
-    [Info("Automated Stash Traps", "Dana", "1.5.1")]
+    [Info("Automated Stash Traps", "Dana", "1.5.2")]
     [Description("Spawns fully automated stash traps across the map to catch ESP cheaters.")]
     public class AutomatedStashTraps : RustPlugin
     {
@@ -39,7 +39,7 @@ namespace Oxide.Plugins
         private Coroutine _spawnCoroutine;
 
         private List<BasePlayer> _manualTrapDeployers = new List<BasePlayer>();
-        private HashSet<uint> _revealedOwnedStashes = new HashSet<uint>();
+        private HashSet<ulong> _revealedOwnedStashes = new HashSet<ulong>();
         private Dictionary<BasePlayer, StorageContainer> _activeLootEditors = new Dictionary<BasePlayer, StorageContainer>();
 
         private Timer _reportScheduler;
@@ -646,7 +646,7 @@ namespace Oxide.Plugins
             public Dictionary<ulong, int> Violations { get; set; } = new Dictionary<ulong, int>();
 
             [JsonProperty(PropertyName = "Automated Traps")]
-            public Dictionary<uint, AutomatedTrapData> AutomatedTraps { get; set; } = new Dictionary<uint, AutomatedTrapData>();
+            public Dictionary<ulong, AutomatedTrapData> AutomatedTraps { get; set; } = new Dictionary<ulong, AutomatedTrapData>();
 
             public static Data Load()
             {
@@ -686,27 +686,27 @@ namespace Oxide.Plugins
 
             public void CreateTrapData(StashContainer stash, SleepingBag sleepingBag = null)
             {
-                AutomatedTraps[stash.net.ID] = new AutomatedTrapData
+                AutomatedTraps[stash.net.ID.Value] = new AutomatedTrapData
                 {
                     DummyStash = new DummyStashData
                     {
                         Hidden = true,
-                        Id = stash.net.ID,
+                        Id = stash.net.ID.Value,
                         Position = stash.ServerPosition
                     }
                 };
 
                 if (sleepingBag != null)
-                    AutomatedTraps[stash.net.ID].DummySleepingBag = new DummySleepingBagData
+                    AutomatedTraps[stash.net.ID.Value].DummySleepingBag = new DummySleepingBagData
                     {
-                        Id = sleepingBag.net.ID,
+                        Id = sleepingBag.net.ID.Value,
                         NiceName = sleepingBag.niceName,
                         SkinId = sleepingBag.skinID,
                         Position = sleepingBag.ServerPosition
                     };
             }
 
-            public AutomatedTrapData GetTrapData(uint trapId)
+            public AutomatedTrapData GetTrapData(ulong trapId)
             {
                 AutomatedTrapData trapData;
                 return AutomatedTraps.TryGetValue(trapId, out trapData) ? trapData : null;
@@ -733,7 +733,7 @@ namespace Oxide.Plugins
             public bool Hidden { get; set; }
 
             [JsonProperty(PropertyName = "Id")]
-            public uint Id { get; set; }
+            public ulong Id { get; set; }
 
             [JsonProperty(PropertyName = "Position")]
             public Vector3 Position { get; set; }
@@ -742,7 +742,7 @@ namespace Oxide.Plugins
         private class DummySleepingBagData
         {
             [JsonProperty(PropertyName = "Id")]
-            public uint Id { get; set; }
+            public ulong Id { get; set; }
 
             [JsonProperty(PropertyName = "Nice Name")]
             public string NiceName { get; set; }
@@ -883,7 +883,7 @@ namespace Oxide.Plugins
             if (PlayerIsStashOwner(stash, player))
                 return;
             else if (!PlayerExistsInOwnerTeam(stash.OwnerID, player))
-                _revealedOwnedStashes.Add(stash.net.ID);
+                _revealedOwnedStashes.Add(stash.net.ID.Value);
         }
 
         #endregion Oxide Hooks
@@ -1129,7 +1129,7 @@ namespace Oxide.Plugins
             // Keep track of the number of removed traps.
             int removedTraps = 0;
             // Process all traps one by one.
-            foreach (uint trapId in _data.AutomatedTraps.Keys)
+            foreach (ulong trapId in _data.AutomatedTraps.Keys)
             {
                 // Retrieve the _data for the current trap.
                 AutomatedTrapData trap = _data.GetTrapData(trapId);
@@ -1191,7 +1191,7 @@ namespace Oxide.Plugins
 
         private void OnStashTriggered(StashContainer stash, BasePlayer player, bool stashWasDestroyed)
         {
-            AutomatedTrapData trap = _data.GetTrapData(stash.net.ID);
+            AutomatedTrapData trap = _data.GetTrapData(stash.net.ID.Value);
             if (trap != null)
             {
                 if (_config.Notification.StashReportFilter != 0 && _config.Notification.StashReportFilter != 2)
@@ -1209,7 +1209,7 @@ namespace Oxide.Plugins
                 if (_config.Notification.StashReportFilter != 1 && _config.Notification.StashReportFilter != 2)
                     return;
 
-                if (_revealedOwnedStashes.Contains(stash.net.ID))
+                if (_revealedOwnedStashes.Contains(stash.net.ID.Value))
                     return;
 
                 if (PlayerIsStashOwner(stash, player))
@@ -1222,7 +1222,7 @@ namespace Oxide.Plugins
                     return;
 
                 if (!stashWasDestroyed)
-                    _revealedOwnedStashes.Add(stash.net.ID);
+                    _revealedOwnedStashes.Add(stash.net.ID.Value);
             }
 
             _lastRevealedStashPosition = stash.ServerPosition;
@@ -1327,7 +1327,7 @@ namespace Oxide.Plugins
 
         private bool StashIsAutomatedTrap(StashContainer stash)
         {
-            AutomatedTrapData trap = _data.GetTrapData(stash.net.ID);
+            AutomatedTrapData trap = _data.GetTrapData(stash.net.ID.Value);
             if (trap != null)
                 return true;
 
@@ -2471,9 +2471,10 @@ namespace Oxide.Plugins
         /// </summary>
         /// <param name="entityId"> The id of the entity to find. </param>
         /// <returns> The BaseEntity object with the specified id, or null if no such entity exists in the world or is valid. </returns>
-        private BaseEntity FindEntityById(uint entityId)
+        private BaseEntity FindEntityById(ulong entityId)
         {
-            BaseEntity entity = BaseNetworkable.serverEntities.Find(entityId) as BaseEntity;
+            NetworkableId id = new NetworkableId(entityId);
+            BaseEntity entity = BaseNetworkable.serverEntities.Find(id) as BaseEntity;
             return !entity.IsValid() || entity.IsDestroyed ? null : entity;
         }
 
