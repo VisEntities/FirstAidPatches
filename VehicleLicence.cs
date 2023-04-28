@@ -19,7 +19,7 @@ using Random = UnityEngine.Random;
 
 namespace Oxide.Plugins
 {
-    [Info("Vehicle Licence", "Sorrow/TheDoc/Arainrr", "1.7.41")]
+    [Info("Vehicle Licence", "Sorrow/TheDoc/Arainrr", "1.7.42")]
     [Description("Allows players to buy vehicles and then spawn or store it")]
     public class VehicleLicence : RustPlugin
     {
@@ -224,7 +224,8 @@ namespace Oxide.Plugins
                         {
                             continue;
                         }
-                        entry.Value.Entity = BaseNetworkable.serverEntities.Find(entry.Value.EntityId) as BaseEntity;
+                        NetworkableId id = new NetworkableId(entry.Value.EntityId);
+                        entry.Value.Entity = BaseNetworkable.serverEntities.Find(id) as BaseEntity;
                         if (entry.Value.Entity == null || entry.Value.Entity.IsDestroyed)
                         {
                             entry.Value.EntityId = 0;
@@ -1702,7 +1703,7 @@ namespace Oxide.Plugins
             vehicle.PlayerId = player.userID;
             vehicle.VehicleType = vehicle.VehicleType;
             vehicle.Entity = entity;
-            vehicle.EntityId = entity.net.ID;
+            vehicle.EntityId = entity.net.ID.Value;
             vehicle.LastDismount = vehicle.LastRecall = TimeEx.currentTimestamp;
             vehiclesCache.Add(entity, vehicle);
         }
@@ -5039,7 +5040,7 @@ namespace Oxide.Plugins
         public class Vehicle
         {
             [JsonProperty("entityID")]
-            public uint EntityId { get; set; }
+            public ulong EntityId { get; set; }
 
             [JsonProperty("lastDeath")]
             public double LastDeath { get; set; }

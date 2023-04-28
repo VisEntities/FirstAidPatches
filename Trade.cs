@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Oxide.Plugins
 {
-    [Info ("Trade", "Calytic", "1.2.43")]
+    [Info ("Trade", "Calytic", "1.2.44")]
     class Trade : RustPlugin
     {
         #region Configuration
@@ -996,7 +996,7 @@ namespace Oxide.Plugins
                 ItemContainer container = new ItemContainer ();
                 container.playerOwner = player;
                 container.ServerInitialize (null, slots);
-                if (container.uid == 0)
+                if (container.uid.Value == 0)
                     container.GiveUID ();
 
                 view.enableSaving = false;

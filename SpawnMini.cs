@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Oxide.Plugins
 {
-    [Info("Spawn Mini", "SpooksAU", "2.12.0")]
+    [Info("Spawn Mini", "SpooksAU", "2.12.1")]
     [Description("Spawn a mini!")]
     class SpawnMini : RustPlugin
     {
@@ -91,9 +91,9 @@ namespace Oxide.Plugins
 
         void OnEntityKill(MiniCopter mini)
         {
-            if (_data.playerMini.ContainsValue(mini.net.ID))
+            if (_data.playerMini.ContainsValue(mini.net.ID.Value))
             {
-                string key = _data.playerMini.FirstOrDefault(x => x.Value == mini.net.ID).Key;
+                string key = _data.playerMini.FirstOrDefault(x => x.Value == mini.net.ID.Value).Key;
 
                 ulong result;
                 ulong.TryParse(key, out result);
@@ -111,7 +111,7 @@ namespace Oxide.Plugins
             if (entity == null || info == null || entity.OwnerID == 0)
                 return null;
 
-            if (_data.playerMini.ContainsValue(entity.net.ID))
+            if (_data.playerMini.ContainsValue(entity.net.ID.Value))
                 if (permission.UserHasPermission(entity.OwnerID.ToString(), _noDecay) && info.damageTypes.Has(Rust.DamageType.Decay))
                     return true;
 
@@ -142,11 +142,12 @@ namespace Oxide.Plugins
             if (player == null)
                 return;
 
-            uint miniNetId;
+            ulong miniNetId;
             if (!_data.playerMini.TryGetValue(player.UserIDString, out miniNetId))
                 return;
 
-            var mini = BaseNetworkable.serverEntities.Find(miniNetId) as MiniCopter;
+            NetworkableId id = new NetworkableId(miniNetId);
+            var mini = BaseNetworkable.serverEntities.Find(id) as MiniCopter;
             if (mini == null)
                 return;
 
@@ -277,7 +278,8 @@ namespace Oxide.Plugins
             if (DespawnWasBlocked(player, mini))
                 return;
 
-            BaseNetworkable.serverEntities.Find(_data.playerMini[player.UserIDString])?.Kill();
+            NetworkableId id = new NetworkableId(_data.playerMini[player.UserIDString]);
+            BaseNetworkable.serverEntities.Find(id)?.Kill();
         }
 
         [ConsoleCommand("spawnmini.give")]
@@ -380,11 +382,12 @@ namespace Oxide.Plugins
 
         private MiniCopter FindPlayerMini(BasePlayer player)
         {
-            uint miniNetId;
+            ulong miniNetId;
             if (!_data.playerMini.TryGetValue(player.UserIDString, out miniNetId))
                 return null;
 
-            var mini = BaseNetworkable.serverEntities.Find(miniNetId) as MiniCopter;
+            NetworkableId id = new NetworkableId(miniNetId);
+            var mini = BaseNetworkable.serverEntities.Find(id) as MiniCopter;
 
             // Fix a potential data file desync where the mini doesn't exist anymore
             // Desyncs should be rare but are not possible to 100% prevent
@@ -492,7 +495,7 @@ namespace Oxide.Plugins
             else
                 AddInitialFuel(mini, player.UserIDString);
 
-            _data.playerMini.Add(player.UserIDString, mini.net.ID);
+            _data.playerMini.Add(player.UserIDString, mini.net.ID.Value);
 
             if (!permission.UserHasPermission(player.UserIDString, _noCooldown))
             {
@@ -517,7 +520,7 @@ namespace Oxide.Plugins
             mini.OwnerID = player.userID;
             mini.Spawn();
 
-            _data.playerMini.Add(player.UserIDString, mini.net.ID);
+            _data.playerMini.Add(player.UserIDString, mini.net.ID.Value);
 
             if (permission.UserHasPermission(player.UserIDString, _noFuel))
                 EnableUnlimitedFuel(mini);
@@ -566,7 +569,7 @@ namespace Oxide.Plugins
 
         private bool IsPlayerOwned(MiniCopter mini)
         {
-            if (mini != null && _data.playerMini.ContainsValue(mini.net.ID))
+            if (mini != null && _data.playerMini.ContainsValue(mini.net.ID.Value))
                 return true;
 
             return false;
@@ -611,7 +614,7 @@ namespace Oxide.Plugins
         class SaveData
         {
             [JsonProperty("playerMini")]
-            public Dictionary<string, uint> playerMini = new Dictionary<string, uint>();
+            public Dictionary<string, ulong> playerMini = new Dictionary<string, ulong>();
 
             [JsonProperty("spawnCooldowns")]
             public Dictionary<string, DateTime> spawnCooldowns = new Dictionary<string, DateTime>();
