@@ -376,10 +376,12 @@
   <ItemGroup>
     <Compile Include="Arkan.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
+    <Compile Include="ChestStackMultiplier.cs" />
     <Compile Include="FurnaceSplitter.cs" />
     <Compile Include="GUIShop.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Inbound.cs" />
+    <Compile Include="LootBouncer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoverTool.cs" />
     <Compile Include="SpawnMini.cs" />
