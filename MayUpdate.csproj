@@ -380,6 +380,7 @@
     <Compile Include="BackPumpJack.cs" />
     <Compile Include="BoxLooters.cs" />
     <Compile Include="BuildingGrades.cs" />
+    <Compile Include="BuildingHealth.cs" />
     <Compile Include="ChestStackMultiplier.cs" />
     <Compile Include="FurnaceSplitter.cs" />
     <Compile Include="GUIShop.cs" />
@@ -387,6 +388,7 @@
     <Compile Include="Inbound.cs" />
     <Compile Include="LootBouncer.cs" />
     <Compile Include="PlayerChallenges.cs" />
+    <Compile Include="PowerlessTurrets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaidTracker.cs" />
     <Compile Include="RemoverTool.cs" />
