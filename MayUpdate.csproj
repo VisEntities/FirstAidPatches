@@ -377,6 +377,8 @@
     <Compile Include="AdminLogger.cs" />
     <Compile Include="Arkan.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
+    <Compile Include="BackPumpJack.cs" />
+    <Compile Include="BoxLooters.cs" />
     <Compile Include="BuildingGrades.cs" />
     <Compile Include="ChestStackMultiplier.cs" />
     <Compile Include="FurnaceSplitter.cs" />
