@@ -374,6 +374,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminLogger.cs" />
     <Compile Include="Arkan.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
     <Compile Include="ChestStackMultiplier.cs" />
