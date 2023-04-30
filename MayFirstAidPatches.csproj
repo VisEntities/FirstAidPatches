@@ -7,8 +7,8 @@
     <ProjectGuid>{A234AEDF-051C-477F-8F23-0792CDD9F863}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MayUpdate</RootNamespace>
-    <AssemblyName>MayUpdate</AssemblyName>
+    <RootNamespace>MayFirstAidPatches</RootNamespace>
+    <AssemblyName>MayFirstAidPatches</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -374,6 +374,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveSort.cs" />
     <Compile Include="AdminLogger.cs" />
     <Compile Include="Arkan.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
@@ -386,13 +387,16 @@
     <Compile Include="GUIShop.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Inbound.cs" />
+    <Compile Include="LaptopCrateHack.cs" />
     <Compile Include="LootBouncer.cs" />
     <Compile Include="PlayerChallenges.cs" />
     <Compile Include="PowerlessTurrets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaidTracker.cs" />
+    <Compile Include="Recycle.cs" />
     <Compile Include="RemoverTool.cs" />
     <Compile Include="SpawnMini.cs" />
+    <Compile Include="TankCommander.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="VehicleLicence.cs" />
   </ItemGroup>
