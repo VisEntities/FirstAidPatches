@@ -9,4 +9,9 @@ Be aware that these patches are subject to further change, as we never know what
 
 -----------
 
+## How to download
+To install one of the patched plugins listed above, start by clicking on the desired plugin, then locate the `Raw` button at the top right corner of the page. Clicking that will open the plugin code in your browser. Next, right-click anywhere on the code and select `Save As` to save it. Once you have the file, all that's left is to upload it to your server.
+
+-----------
+
 If there are any other free plugins that you rely on and their developers seem to have gone off the grid, feel welcome to contact me on [Discord](https://discord.gg/Sn6pQHGUe3), and I'll review them when possible.
