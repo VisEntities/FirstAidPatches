@@ -11,7 +11,3 @@ Be aware that these patches are subject to further change, as we never know what
 
 ## How to download
 Click on the desired plugin and locate the `Raw` button at the top right of the page. Click it to open the plugin code, then right-click with your mouse anywhere on the code and select `Save As`. Once you have the file, upload it to your server.
-
------------
-
-If there are any other free plugins that you rely on and their developers seem to have gone off the grid, feel welcome to contact me on [Discord](https://discord.gg/Sn6pQHGUe3), and I'll review them when possible.
