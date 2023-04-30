@@ -9,4 +9,4 @@ Be aware that these patches are subject to further change, as we never know what
 
 -----------
 
-If there are any other **free** plugins that you rely on and their developers seem to have gone off the grid, feel free to contact me on [Discord](https://discord.gg/Sn6pQHGUe3), and I'll review them when possible.
+If there are any other free plugins that you rely on and their developers seem to have gone off the grid, feel free to contact me on [Discord](https://discord.gg/Sn6pQHGUe3), and I'll review them when possible.
