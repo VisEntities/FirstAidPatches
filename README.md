@@ -1,4 +1,4 @@
-# Early Plugin Patches
+# First Aid Patches
 As the Rust update scheduled for May 4th is approaching, numerous plugins are likely to break due to changes in data types.
 
 To help ease the potential headache for server owners, I've proactively patched some of these at-risk plugins, available for free on [uMod](https://umod.org/plugins), for anyone to download and be better prepared.
