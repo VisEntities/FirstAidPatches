@@ -1041,7 +1041,7 @@ namespace Oxide.Plugins
 
                 if (configData.Inventory.DropInv)
                 {
-                    ItemContainer.Drop("assets/prefabs/misc/item drop/item_drop.prefab", (entity.transform.position + new Vector3(0f, 1.5f, 0f)) + (UnityEngine.Random.onUnitSphere * UnityEngine.Random.Range(2f, 3f)), new Quaternion());
+                    inventory.Drop("assets/prefabs/misc/item drop/item_drop.prefab", (entity.transform.position + new Vector3(0f, 1.5f, 0f)) + (UnityEngine.Random.onUnitSphere * UnityEngine.Random.Range(2f, 3f)), new Quaternion(), 0f);
                 }
                 
                 if (configData.Inventory.DropLoot)

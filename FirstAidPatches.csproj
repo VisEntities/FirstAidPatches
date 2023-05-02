@@ -382,13 +382,16 @@
     <Compile Include="BoxLooters.cs" />
     <Compile Include="BuildingGrades.cs" />
     <Compile Include="BuildingHealth.cs" />
+    <Compile Include="BuildingRestriction.cs" />
     <Compile Include="ChestStackMultiplier.cs" />
     <Compile Include="Everlight.cs" />
+    <Compile Include="ExtendedCrafting.cs" />
     <Compile Include="FurnaceSplitter.cs" />
     <Compile Include="GUIShop.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Inbound.cs" />
     <Compile Include="InventoryViewer.cs" />
+    <Compile Include="KillRecords.cs" />
     <Compile Include="LaptopCrateHack.cs" />
     <Compile Include="LootBouncer.cs" />
     <Compile Include="PlayerChallenges.cs" />
