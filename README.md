@@ -10,4 +10,4 @@ Be aware that these patches are subject to further change, as we never know what
 -----------
 
 ## How to download
-Click on the desired plugin and locate the `Raw` button at the top right of the page. Click it to open the plugin code, then right-click with your mouse anywhere on the code and select `Save As`. Once you have the file, upload it to your server.
+Click on the desired plugin and locate the `Raw` button at the top right of the page. Click it to open the plugin code, then right-click with your mouse anywhere on the code and select `Save As`. Once you have the file, upload it to your server. Alternatively, you can use this link to download the entire repository as a zip file https://github.com/VisEntities/FirstAidPatches/archive/refs/heads/master.zip
