@@ -377,6 +377,7 @@
     <Compile Include="ActiveSort.cs" />
     <Compile Include="AdminLogger.cs" />
     <Compile Include="Arkan.cs" />
+    <Compile Include="AutoDoors.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
     <Compile Include="BackPumpJack.cs" />
     <Compile Include="BoxLooters.cs" />
@@ -387,6 +388,7 @@
     <Compile Include="Everlight.cs" />
     <Compile Include="ExtendedCrafting.cs" />
     <Compile Include="FurnaceSplitter.cs" />
+    <Compile Include="GUIAnnouncements.cs" />
     <Compile Include="GUIShop.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Inbound.cs" />
