@@ -397,6 +397,7 @@
     <Compile Include="KillRecords.cs" />
     <Compile Include="LaptopCrateHack.cs" />
     <Compile Include="LootBouncer.cs" />
+    <Compile Include="LootLogs.cs" />
     <Compile Include="MasterLock.cs" />
     <Compile Include="PlayerChallenges.cs" />
     <Compile Include="PowerlessTurrets.cs" />
