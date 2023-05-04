@@ -403,6 +403,7 @@
     <Compile Include="Recycle.cs" />
     <Compile Include="RemoverTool.cs" />
     <Compile Include="SpawnMini.cs" />
+    <Compile Include="SurveyInfo.cs" />
     <Compile Include="TankCommander.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="VehicleLicence.cs" />
