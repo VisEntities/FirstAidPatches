@@ -380,6 +380,7 @@
     <Compile Include="AutoDoors.cs" />
     <Compile Include="AutomatedStashTraps.cs" />
     <Compile Include="BackPumpJack.cs" />
+    <Compile Include="Bank.cs" />
     <Compile Include="BarrelPoints.cs" />
     <Compile Include="BoxLooters.cs" />
     <Compile Include="BuildingGrades.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="FurnaceSplitter.cs" />
     <Compile Include="GUIAnnouncements.cs" />
     <Compile Include="GUIShop.cs" />
+    <Compile Include="HitIcon.cs" />
     <Compile Include="ImageLibrary.cs" />
     <Compile Include="Inbound.cs" />
     <Compile Include="InventoryViewer.cs" />
@@ -398,6 +400,7 @@
     <Compile Include="LaptopCrateHack.cs" />
     <Compile Include="LootBouncer.cs" />
     <Compile Include="LootLogs.cs" />
+    <Compile Include="ManageMini.cs" />
     <Compile Include="MasterLock.cs" />
     <Compile Include="PlayerChallenges.cs" />
     <Compile Include="PowerlessTurrets.cs" />
@@ -410,6 +413,7 @@
     <Compile Include="TankCommander.cs" />
     <Compile Include="Trade.cs" />
     <Compile Include="VehicleLicence.cs" />
+    <Compile Include="ZoneVending.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
