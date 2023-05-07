@@ -403,6 +403,7 @@
     <Compile Include="ManageMini.cs" />
     <Compile Include="MasterLock.cs" />
     <Compile Include="PlayerChallenges.cs" />
+    <Compile Include="PoliceSedan.cs" />
     <Compile Include="PowerlessTurrets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaidTracker.cs" />
